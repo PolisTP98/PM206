@@ -5,10 +5,11 @@ import { pedido } from "./caja.js";
 import { agregarPedido } from "./caja.js";
 
 let breakpoint;
+console.log("\nBienvenido a Big Caesar's, este es el menú de nuestras deliciosas pizzas:\n");
+
 while(breakpoint != "0") {
-    console.log("\nBienvenido a Big Caesar's, este es el menú de nuestras deliciosas pizzas:\n");
     for(const clave in inventario) {
-        console.log(`${clave}: ${inventario[clave]}`);
+        console.log(`${clave}: ${inventario[clave]}\n`);
     }
 
     let index_producto = prompt("\n¿Que le gustaría ordenar? Por favor escriba el índice del producto: ");
@@ -16,7 +17,7 @@ while(breakpoint != "0") {
         let index_producto = prompt(">>> Índice incorrecto, inténtelo nuevamente por favor: ");
     }
 
-    let producto = inventario.index_producto;
+    let producto = inventario[index_producto - 1];
 
     let cantidad = prompt(`\nEscriba la cantidad de ${producto.nombre} a ordenar: `);
     while(!(cantidad > 0)) {
