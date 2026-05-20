@@ -1,5 +1,4 @@
-// Modulo para interactuar con la terminal
-const readline = require('readline');
+import readline from 'readline';
 
 // Interfaz de entrada y salida
 const rl = readline.createInterface({
@@ -8,7 +7,7 @@ const rl = readline.createInterface({
 });
 
 // BD
- export let inventario = [
+export let inventario = [
   {
     id: 1,
     nombre: "Pizza Clasica de Pepperoni",
@@ -93,7 +92,7 @@ function mostrarMenu() {
   console.log("\n--- SISTEMA DE GESTION DE COCINA ---");
   console.log("1. Ver el menu de productos");
   console.log("2. Agregar un producto nuevo");
-  console.log("3. Editar el precio de un producto");
+  console.log("3. Editar un producto");
   console.log("4. Eliminar un producto");
   console.log("5. Salir del sistema");
   
@@ -122,11 +121,48 @@ function mostrarMenu() {
       case '3':
         listarProductos();
         rl.question("Ingresa el ID del producto que deseas editar: ", (idStr) => {
-          rl.question("Ingresa el nuevo precio: ", (precioStr) => {
-            const id = parseInt(idStr);
-            const precio = parseFloat(precioStr);
-            actualizarProducto(id, { precio: precio });
-            mostrarMenu();
+          const id = parseInt(idStr);
+          const productoActual = inventario.find(p => p.id === id);
+
+          if (!productoActual) {
+            console.log(`Error: No se encontro el producto con ID ${id}.`);
+            return mostrarMenu();
+          }
+
+          console.log("\n[NOTA: Deja en blanco y presiona Enter para mantener el valor actual]");
+          
+          rl.question(`Nombre (${productoActual.nombre}): `, (nombre) => {
+            rl.question(`Categoria (${productoActual.categoria}): `, (categoria) => {
+              rl.question(`Precio ($${productoActual.precio}): `, (precioStr) => {
+                rl.question(`Ingredientes (${productoActual.ingredientes.join(', ')}): `, (ingredientesStr) => {
+                  
+                  // Creamos un objeto vacio para guardar solo lo que el usuario decidio cambiar
+                  const nuevosDatos = {};
+
+                  // Evaluamos que datos no esten vacios para agregarlos a la actualizacion
+                  if (nombre.trim() !== "") nuevosDatos.nombre = nombre.trim();
+                  if (categoria.trim() !== "") nuevosDatos.categoria = categoria.trim();
+                  
+                  if (precioStr.trim() !== "") {
+                    const precioActualizado = parseFloat(precioStr);
+                    if (!isNaN(precioActualizado)) nuevosDatos.precio = precioActualizado;
+                  }
+                  
+                  if (ingredientesStr.trim() !== "") {
+                    nuevosDatos.ingredientes = ingredientesStr.split(',').map(i => i.trim());
+                  }
+
+                  // Si el objeto tiene al menos una propiedad por cambiar, lo actualizamos
+                  if (Object.keys(nuevosDatos).length > 0) {
+                    actualizarProducto(id, nuevosDatos);
+                  } else {
+                    console.log("No se realizo ningun cambio.");
+                  }
+                  
+                  mostrarMenu();
+                });
+              });
+            });
           });
         });
         break;
@@ -141,7 +177,7 @@ function mostrarMenu() {
         break;
         
       case '5':
-        console.log("Cerrando el sistema.");
+        console.log("Cerrando el sistema. Hasta luego.");
         rl.close();
         break;
         
