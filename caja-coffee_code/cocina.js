@@ -75,7 +75,7 @@ function actualizarProducto(id, nuevosDatos) {
   }
 }
 
-// Eliminar producto
+// Funcion para eliminar un producto
 function eliminarProducto(id) {
   const longitudInicial = inventario.length;
   inventario = inventario.filter(producto => producto.id !== id); 
@@ -87,7 +87,7 @@ function eliminarProducto(id) {
   }
 }
 
-// Menu interactivo principal
+// Funcion del menu interactivo
 function mostrarMenu() {
   console.log("\n--- SISTEMA DE GESTION DE COCINA ---");
   console.log("1. Ver el menu de productos");
@@ -136,10 +136,8 @@ function mostrarMenu() {
               rl.question(`Precio ($${productoActual.precio}): `, (precioStr) => {
                 rl.question(`Ingredientes (${productoActual.ingredientes.join(', ')}): `, (ingredientesStr) => {
                   
-                  // Creamos un objeto vacio para guardar solo lo que el usuario decidio cambiar
                   const nuevosDatos = {};
 
-                  // Evaluamos que datos no esten vacios para agregarlos a la actualizacion
                   if (nombre.trim() !== "") nuevosDatos.nombre = nombre.trim();
                   if (categoria.trim() !== "") nuevosDatos.categoria = categoria.trim();
                   
@@ -152,7 +150,6 @@ function mostrarMenu() {
                     nuevosDatos.ingredientes = ingredientesStr.split(',').map(i => i.trim());
                   }
 
-                  // Si el objeto tiene al menos una propiedad por cambiar, lo actualizamos
                   if (Object.keys(nuevosDatos).length > 0) {
                     actualizarProducto(id, nuevosDatos);
                   } else {
