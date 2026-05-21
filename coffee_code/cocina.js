@@ -129,7 +129,6 @@ export function mostrarMenu() {
             console.log(`Error: No se encontro el producto con ID ${id}.`);
             return mostrarMenu();
           }
-
           console.log("\n[NOTA: Deja en blanco y presiona Enter para mantener el valor actual]");
           
           rl.question(`Nombre (${productoActual.nombre}): `, (nombre) => {
