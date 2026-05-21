@@ -1,29 +1,15 @@
-import { 
-    agregarExcepcion, 
-    ingresarCredenciales, 
-    validarCredenciales, 
-    logIn, 
-    signUp, 
-    editUser, 
-    deleteUser 
-} from "./controlador.js";
-import { 
-    agregarPedido, 
-    obtenerPedidos 
-} from "./caja.js";
-import { 
-    verMenuCliente,  
-    obtenerProductos 
-} from "./cliente.js";
-import { rl } from "./cocina.js";
-import { resetearBreakpoints } from "./servidor_admin.js";
-let id_usuario = null, nombre, contrasena, breakpoint, entrada1, entrada2;
+import { inicializarDB } from "./bd.js";
+import { rl, logIn, signUp } from "./controlador.js";
+import { obtenerPedidosPorUsuario, crearPedidoMenu } from "./caja.js";
+import { verMenuCliente, obtenerProductosPublicos } from "./cliente.js";
 
+
+inicializarDB();
+
+let usuario_cliente = null;
 
 function verMenuLogInSignUp() {
     console.log(`
-        POR FAVOR SELECCIONE LA OPCIÓN A REALIZAR:
-
         ==========================================
         | (1) INICIAR SESIÓN                     |
         | (2) ¿NO TIENES UNA CUENTA? REGISTRARSE |
@@ -32,65 +18,81 @@ function verMenuLogInSignUp() {
 }
 
 
-export function logInSignUp() {
-    if(!(id_usuario === null)) return;
-    verMenuLogInSignUp();
-    while(!(["1", "2"].includes(entrada1)))
-    entrada1 = await rl.question(">>> ");
-    switch(entrada1) {
-        case "1":
+async function logInSignUp() {
+    if (usuario_cliente !== null) return; 
+
+    let valida = false;
+    while (!valida) {
+        console.clear();
+        verMenuLogInSignUp();
+        let entrada = await rl.question(">>> ");
+        
+        if (entrada === "1") {
             console.clear();
-            logIn();
-            break;
-        case "2":
+            usuario_cliente = await logIn();
+            valida = true;
+        } else if (entrada === "2") {
             console.clear();
-            signUp();
-            break;
-        default:
-            throw new agregarExcepcion(
-                "OpcionInvalida", 
-                "No existe la opción ingresada, favor de intentarlo nuevamente"
-            );
-            break;
+            await signUp(false);
+            console.log("\n========== REGISTRO EXITOSO. FAVOR DE INICIAR SESIÓN ==========");
+            await rl.question("[ENTER] PARA CONTINUAR");
+        } else {
+            console.log("========== OPCIÓN INVÁLIDA ==========");
+            await rl.question("[ENTER] PARA CONTINUAR");
+        }
     }
 }
 
 
 async function main() {
-    resetearBreakpoints();
-    while(["1", "2", "3"].includes(breakpoint)) {
+    let breakpoint = "";
+    
+    while (breakpoint.toLowerCase() !== "s") {
         try {
             console.clear();
+            if(usuario_cliente) console.log(`¡BIENVENIDO A BIG CAESARS ${usuario_cliente.nombre}!\nPOR FAVOR SELECCIONE LA OPCIÓN A REALIZAR:\n\n`);
             verMenuCliente();
             breakpoint = await rl.question(">>> ");
+            
             switch(breakpoint) {
                 case "1":
-                    obtenerProductos();
-                    entrada2 = await rl.question("");
+                    console.clear();
+                    obtenerProductosPublicos();
+                    await rl.question("\n[ENTER] PARA CONTINUAR");
                     break;
                 case "2":
-                    logInSignUp();
-                    obtenerProductos();
-                    crearPedido();
+                    await logInSignUp();
+                    console.clear();
+                    obtenerProductosPublicos();
+                    await crearPedidoMenu(usuario_cliente.id_usuario);
                     break;
                 case "3":
-                    logInSignUp();
-                    obtenerPedidos(id_usuario);
-                    entrada2 = await rl.question("");
+                    await logInSignUp();
+                    console.clear();
+                    console.log(`
+                        =================================
+                        |          MIS PEDIDOS          |
+                        =================================
+                    `);
+                    obtenerPedidosPorUsuario(usuario_cliente.id_usuario);
+                    await rl.question("\n[ENTER] PARA CONTINUAR");
                     break;
             }
         }
         catch(e) {
             console.clear();
-            console.log(`
-                ID: ${e.id_excepcion}
-                NOMBRE: ${e.nombre}
-                MENSAJE: ${e.mensaje}
+            console.log(`\n
+                ===========================================
+                |          EXCEPCIÓN DEL SISTEMA          |
+                ===========================================
+                ${e.nombre}: ${e.mensaje}\n
             `);
-            entrada2 = await rl.question("");
-        }
-        finally {
-            rl.close();
+            await rl.question("[ENTER] PARA CONTINUAR");
         }
     }
+    console.log("\n========== ¡GRACIAS POR VISITAR BIG CAESARS! ==========");
+    rl.close();
 }
+
+
+main();

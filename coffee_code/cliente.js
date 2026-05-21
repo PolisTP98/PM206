@@ -1,42 +1,34 @@
-import { obtenerRegistro } from "./controlador.js";
-import { inventario } from "./cocina.js";
+import { leerDB } from "./bd.js";
 
 
 export function verMenuCliente() {
     console.log(`
-        ¡BIENVENIDO A BIG CAESARS!, POR FAVOR SELECCIONE LA OPCIÓN A REALIZAR:
-
         ===============================
         | (1) VER MENÚ DE PRODUCTOS   |
         | (2) REALIZAR PEDIDO         |
-        | (3) VER PEDIDOS             |
+        | (3) VER MIS PEDIDOS         |
         |                             |
-        | [ANY_KEY] SALIR DEL SISTEMA |
+        | [S] SALIR DEL SISTEMA       |
         ===============================
     `);
 }
 
 
-function verProductos(producto) {
-    console.log(`
+export function obtenerProductosPublicos() {
+    const db = leerDB();
+    if(db.inventario.length === 0) {
+        console.log("\n========== LO SENTIMOS, NO HAY PRODUCTOS DISPONIBLES EN ESTE MOMENTO n==========");
+        return;
+    }
+
+    db.inventario.forEach(producto => {
+        const list_ingredientes = producto.ingredientes ? producto.ingredientes.join(", ") : "SIN INGREDIENTES";
+        console.log(`
         ID PRODUCTO: ${producto.id_producto}
         NOMBRE: ${producto.nombre}
         CATEGORÍA: ${producto.categoria}
         PRECIO: $${producto.precio}
-        INGREDIENTES: ${producto.ingredientes.forEach(ingrediente => {ingrediente.join(" ")})}
-    \n`);
-}
-
-
-export function obtenerProductos() {
-    inventario.forEach(producto => {
-        verProductos(producto);
+        INGREDIENTES: ${list_ingredientes}
+        `);
     });
-}
-
-
-export function obtenerProducto(id_producto) {
-    const producto = obtenerRegistro(inventario, id_producto);
-    verProductos(producto);
-    return producto;
 }
