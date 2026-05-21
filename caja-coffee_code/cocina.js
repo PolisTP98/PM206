@@ -1,7 +1,8 @@
 import readline from 'readline';
+import { obtenerRegistro } from './controlador';
 
 // Interfaz de entrada y salida
-const rl = readline.createInterface({
+export const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
@@ -50,8 +51,8 @@ function agregarProducto(nombre, categoria, precio, ingredientes) {
 }
 
 // Funcion para listar los productos
-function listarProductos() {
-  console.log("\n--- MENU DE LITTLE CAESARS ---");
+export function listarProductos() {
+  console.log("\n--- MENU DE BIG CAESARS ---");
   
   inventario.forEach(producto => {
     console.log(`[ID: ${producto.id}] ${producto.nombre} - $${producto.precio} (${producto.categoria})`);
@@ -88,7 +89,7 @@ function eliminarProducto(id) {
 }
 
 // Funcion del menu interactivo
-function mostrarMenu() {
+export function mostrarMenu() {
   console.log("\n--- SISTEMA DE GESTION DE COCINA ---");
   console.log("1. Ver el menu de productos");
   console.log("2. Agregar un producto nuevo");
