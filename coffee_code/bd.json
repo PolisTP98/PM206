@@ -58,6 +58,27 @@
                 "Sardina",
                 "Salsa de tomate"
             ]
+        },
+        {
+            "id_producto": 5,
+            "nombre": "Pizza de pies",
+            "categoria": "Pizza",
+            "precio": 200,
+            "ingredientes": [
+                "isaac",
+                "aaron",
+                "rafa"
+            ]
+        },
+        {
+            "id_producto": 6,
+            "nombre": "Combolas",
+            "categoria": "Combo",
+            "precio": 225,
+            "ingredientes": [
+                "Pizza de pies",
+                "Crazy Bread"
+            ]
         }
     ],
     "pedidos": []
