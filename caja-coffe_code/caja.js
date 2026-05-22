@@ -2,6 +2,7 @@ import { leerDB, guardarDB } from "./bd.js";
 import { rl } from "./controlador.js";
 const VALOR_IVA = 0.16;
 
+
 export function verMenuCaja() {
     console.log(`
         POR FAVOR SELECCIONE LA OPCIÓN A REALIZAR:
