@@ -1,0 +1,75 @@
+{
+    "usuarios": [
+        {
+            "id_usuario": 1,
+            "nombre": "PolisTP98",
+            "contrasena": "PolisTP98",
+            "es_admin": true
+        },
+        {
+            "id_usuario": 2,
+            "nombre": "Ian",
+            "contrasena": "Ian",
+            "es_admin": false
+        }
+    ],
+    "inventario": [
+        {
+            "id_producto": 1,
+            "nombre": "Pizza Clasica de Pepperoni",
+            "categoria": "Pizza",
+            "precio": 99,
+            "ingredientes": [
+                "Masa original",
+                "Salsa de tomate",
+                "Queso",
+                "Pepperoni"
+            ],
+            "stock": 100
+        },
+        {
+            "id_producto": 2,
+            "nombre": "Pizza de Queso",
+            "categoria": "Pizza",
+            "precio": 89,
+            "ingredientes": [
+                "Masa original",
+                "Salsa de tomate",
+                "Extra queso"
+            ],
+            "stock": 100
+        },
+        {
+            "id_producto": 3,
+            "nombre": "Crazy Bread",
+            "categoria": "Complemento",
+            "precio": 49,
+            "ingredientes": [
+                "Masa original",
+                "Mantequilla de ajo",
+                "Queso parmesano"
+            ],
+            "stock": 100
+        },
+        {
+            "id_producto": 4,
+            "nombre": "Combo Fiesta",
+            "categoria": "Combo",
+            "precio": 250,
+            "ingredientes": [
+                "Pizza Clasica de Pepperoni",
+                "Pizza de Queso",
+                "Crazy Bread"
+            ]
+        }
+    ],
+    "pedidos": [
+        {
+            "id_pedido": 1,
+            "id_usuario": 2,
+            "id_producto": 1,
+            "cantidad": 3
+        }
+    ],
+    "excepciones": []
+}

@@ -39,7 +39,6 @@ function verInfoPedidos(lista_pedidos) {
             ID USUARIO: ${pedido.id_usuario}
             ID PEDIDO: ${pedido.id_pedido}
         `);
-        
         let producto = db.inventario.find(p => p.id_producto === pedido.id_producto);
         if (producto) {
             let subtotal = producto.precio * pedido.cantidad;
