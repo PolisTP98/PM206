@@ -79,7 +79,7 @@ async function main() {
         }
         await rl.question("\n[ENTER] PARA ENTRAR AL SISTEMA");
     } catch (e) {
-        console.log(`\nERROR: ${e.mensaje || e}`);
+        console.log(e);
         rl.close();
         return;
     }

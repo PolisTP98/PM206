@@ -1,5 +1,5 @@
 import fs from "fs";
-import { inicializarExcepciones } from "./excepciones.js";
+import { inicializarExcepciones, lanzarExcepcionPorID } from "./excepciones.js";
 const DB_FILE = "./bd.json";
 
 

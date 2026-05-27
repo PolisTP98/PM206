@@ -1,5 +1,6 @@
 import * as readline from "node:readline/promises";
 import { obtenerUsuarioPorCredenciales, agregarUsuario, obtenerUsuarioPorID, editarUsuario, eliminarUsuario } from "./bd.js";
+import { lanzarExcepcionPorID } from "./excepciones.js";
 
 
 export const rl = readline.createInterface({

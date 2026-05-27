@@ -31,5 +31,9 @@ export function lanzarExcepcionPorID(id_excepcion) {
     const db = leerDB();
     const excepcion = db.excepciones.find(e => e.id_excepcion === id_excepcion);
     if(!excepcion) throw db.excepciones["IDInvalido"];
-    throw excepcion;
+    throw `
+    ID EXCEPCIÓN: ${excepcion.id_excepcion}
+    NOMBRE: ${excepcion.nombre}
+    MENSAJE: ${excepcion.mensaje}
+    `;
 }

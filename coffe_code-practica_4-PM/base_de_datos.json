@@ -1,0 +1,211 @@
+{
+    "usuarios": [
+        {
+            "id_usuario": 1,
+            "nombre": "PolisTP98",
+            "contrasena": "PolisTP98",
+            "id_rol": 1
+        }
+    ],
+    "productos": [],
+    "pedidos": [],
+    "roles": [
+        {
+            "id_rol": 1,
+            "nombre": "Administrador",
+            "descripcion": "Encargado de la gestión de usuarios del sistema"
+        },
+        {
+            "id_rol": 2,
+            "nombre": "Caja",
+            "descripcion": "Encargado de la captura de pedidos y finanzas"
+        },
+        {
+            "id_rol": 3,
+            "nombre": "Cocina",
+            "descripcion": "Encargado de la preparación de pedidos"
+        },
+        {
+            "id_rol": 4,
+            "nombre": "Cliente",
+            "descripcion": "Usuario que utiliza el sistema"
+        }
+    ],
+    "categorias": [
+        {
+            "id_categoria": 1,
+            "nombre": "Combo"
+        },
+        {
+            "id_categoria": 2,
+            "nombre": "Alimento"
+        },
+        {
+            "id_categoria": 3,
+            "nombre": "Complemento"
+        },
+        {
+            "id_categoria": 4,
+            "nombre": "Bebida"
+        }
+    ],
+    "ingredientes": [
+        {
+            "id_ingrediente": 1,
+            "nombre": "Masa clásica"
+        },
+        {
+            "id_ingrediente": 2,
+            "nombre": "Salsa de tomate tradicional"
+        },
+        {
+            "id_ingrediente": 3,
+            "nombre": "Salsa BBQ"
+        },
+        {
+            "id_ingrediente": 4,
+            "nombre": "Salsa buffalo"
+        },
+        {
+            "id_ingrediente": 5,
+            "nombre": "Queso mozzarella"
+        },
+        {
+            "id_ingrediente": 6,
+            "nombre": "Queso muenster"
+        },
+        {
+            "id_ingrediente": 7,
+            "nombre": "Queso extra"
+        },
+        {
+            "id_ingrediente": 8,
+            "nombre": "Queso parmesano rallado"
+        },
+        {
+            "id_ingrediente": 9,
+            "nombre": "Pepperoni"
+        },
+        {
+            "id_ingrediente": 10,
+            "nombre": "Salchicha italiana"
+        },
+        {
+            "id_ingrediente": 11,
+            "nombre": "Tocino"
+        },
+        {
+            "id_ingrediente": 12,
+            "nombre": "Jamón"
+        },
+        {
+            "id_ingrediente": 13,
+            "nombre": "Carne molida de res"
+        },
+        {
+            "id_ingrediente": 14,
+            "nombre": "Pollo deshebrado"
+        },
+        {
+            "id_ingrediente": 15,
+            "nombre": "Champiñones"
+        },
+        {
+            "id_ingrediente": 16,
+            "nombre": "Pimiento verde"
+        },
+        {
+            "id_ingrediente": 17,
+            "nombre": "Cebolla"
+        },
+        {
+            "id_ingrediente": 18,
+            "nombre": "Aceitunas negras"
+        },
+        {
+            "id_ingrediente": 19,
+            "nombre": "Piña"
+        },
+        {
+            "id_ingrediente": 20,
+            "nombre": "Chiles jalapeños"
+        },
+        {
+            "id_ingrediente": 21,
+            "nombre": "Mantequilla de ajo"
+        },
+        {
+            "id_ingrediente": 22,
+            "nombre": "Sazonador italiano"
+        }
+    ],
+    "estados": [
+        {
+            "id_estado": 1,
+            "nombre": "Pendiente",
+            "descripcion": "El pedido llegó a cocina, pero aún no está en preparación"
+        },
+        {
+            "id_estado": 2,
+            "nombre": "En Preparación",
+            "descripcion": "El pedido está en preparación"
+        },
+        {
+            "id_estado": 3,
+            "nombre": "Completado",
+            "descripcion": "El pedido ha sido completado, pero aún no se entregó al cliente"
+        },
+        {
+            "id_estado": 4,
+            "nombre": "Entregado",
+            "descripcion": "El pedido ha sido entregado al cliente"
+        },
+        {
+            "id_estado": 5,
+            "nombre": "Cancelado",
+            "descripcion": "El pedido fue cancelado por uno o diversos motivos"
+        }
+    ],
+    "excepciones": [
+        {
+            "id_excepcion": 1,
+            "nombre": "ObjetoInexistente",
+            "descripcion": "No existe el objeto proporcionado"
+        },
+        {
+            "id_excepcion": 2,
+            "nombre": "CamposObligatoriosVacios",
+            "descripcion": "Debes llenar todos los campos obligatorios del formulario"
+        },
+        {
+            "id_excepcion": 3,
+            "nombre": "IDInvalido",
+            "descripcion": "No existe ningún registro con el ID proporcionado"
+        },
+        {
+            "id_excepcion": 4,
+            "nombre": "NoEsNumero",
+            "descripcion": "Debes ingresar un valor numérico"
+        },
+        {
+            "id_excepcion": 5,
+            "nombre": "RegistroInexistente",
+            "descripcion": "No existe el registro con los campos proporcionados"
+        },
+        {
+            "id_excepcion": 6,
+            "nombre": "RegistroExistente",
+            "descripcion": "Ya existe un registro con el nombre proporcionado"
+        },
+        {
+            "id_excepcion": 7,
+            "nombre": "CredencialesInvalidas",
+            "descripcion": "Nombre o contraseña incorrectas"
+        },
+        {
+            "id_excepcion": 8,
+            "nombre": "RolIncorrecto",
+            "descripcion": "Este usuario no tiene permisos para acceder a este módulo"
+        }
+    ]
+}
