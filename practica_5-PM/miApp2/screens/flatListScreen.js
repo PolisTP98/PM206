@@ -1,14 +1,13 @@
 /* Zona 1: Importaciones de componentes y archivos */
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import MenuScreen from './screens/menuScreen';
 
 /* Zona 2: Main - Hogar de los componentes */
-export default function App() {
+export default function FlatListScreen() {
     return (
         <View style = {styles.container}>
-            <MenuScreen/>
             <StatusBar style = "auto"/>
+            <Text>Aquí va la práctica de Saul</Text>
         </View>
     );
 }
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         flexDirection: 'column',
     },
 });

@@ -2,7 +2,7 @@
 import { View, Text, Button, StyleSheet } from 'react-native';
 import React,{useState} from 'react';
 
-export const Perfil = ({ nombre, carrera, materia, cuatrimestre, estiloExterno }) => {
+export const Perfil = ({ nombre, carrera, apodo, materia, cuatrimestre, estiloExterno }) => {
 
     const [mostrar, setMostrar] = useState(false);
 
@@ -12,6 +12,7 @@ export const Perfil = ({ nombre, carrera, materia, cuatrimestre, estiloExterno }
         {mostrar && 
         <>
             <Text style = {styles.carrera}>Carrera: {carrera}</Text>
+            <Text style = {styles.otroTexto}>Apodo: {apodo}</Text>
             <Text style = {styles.otroTexto}>Materia: {materia}</Text>
             <Text style = {styles.otroTexto}>Cuatrimestre: {cuatrimestre}</Text>
         </>
