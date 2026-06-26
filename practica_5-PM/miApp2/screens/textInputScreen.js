@@ -15,7 +15,7 @@ export default function TextInputScreen() {
             alertasManager("Validación", "Todos los campos son obligatorios");
             return;
         }
-        alertasManager("Éxito", 'Registro procesado para: ${nombre}');
+        alertasManager("Éxito", `Registro procesado para: ${nombre}`);
     };
 
     const alertasManager = (titulo, mensaje) => {
