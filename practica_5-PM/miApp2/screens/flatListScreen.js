@@ -13,7 +13,7 @@ export default function FlatListScreen() {
         {id: "5", nombre: "Rafael de Jesús Reyes Chávez"}, 
         {id: "6", nombre: "Gabriela Martínez Cruz"}, 
         {id: "7", nombre: "Axel Gabriel Ramírez Ortiz"}, 
-        {id: "8", nombre: "Diego Aarón Sámano Hernández"},
+        {id: "8", nombre: "Diego Aarón Sámano Hernández"}, 
     ]);
     const[secciones, setSecciones] = useState([
         {
