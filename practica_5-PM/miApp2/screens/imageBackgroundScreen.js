@@ -1,51 +1,48 @@
 import React, { useState, useEffect } from "react";
-import {
+import { 
     View, 
     Text, 
     StyleSheet, 
     ImageBackground, 
-    ActivityIndicator
+    ActivityIndicator 
 } from "react-native";
 
 export default function ImageBackgroundScreen() {
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
         async function prepararAplicacion() {
             try {
                 await new Promise((resolve) => setTimeout(resolve, 3000));
-            }
-            catch(e) {
+            } catch (e) {
                 console.warn(e);
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
         }
+
         prepararAplicacion();
     }, []);
-    
-    if(loading) {
+
+    if (loading) {
         return(
             <View style = {styles.splash}>
-                <ActivityIndicator size = "large" color = "#0000ff" style = {{ marginBottom: 20 }}/>
+                <ActivityIndicator size = "large" color = "#0000ff" style = {{ marginBottom: 20 }} />
                 <Text style = {styles.splashText}>Cargando aplicación...</Text>
             </View>
         );
     }
-    
+
     return(
-        <ImageBackground
-            source = {{ uri: "https://picsum.photos/500/900"}}
-            style = {styles.background}
-            resizeMode="cover"
+        <ImageBackground 
+            source = {{ uri: "https://picsum.photos/500/900"}} 
+            style = {styles.background} 
+            resizeMode = "cover"
         >
-            {/* El overlay ayuda a que los textos blancos contrasten y sean legibles */}
+            {}
             <View style = {styles.overlay}>
                 <Text style = {styles.titulo}>Bienvenido a React Native</Text>
-                <Text style = {styles.subtitulo}>
-                    Ejemplo de ImageBackground y SplashScreen
-                </Text>
+                <Text style = {styles.subtitulo}>Ejemplo de ImageBackground y SplashScreen</Text>
             </View>
         </ImageBackground>
     );
