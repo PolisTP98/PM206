@@ -17,7 +17,7 @@ export default function ModalScreen() {
 
     return(
         <View style = {styles.container}>
-            <Text style = {styles.titulo}>Ejemplo de Modal y BottomSheet</Text>
+            <Text style = {styles.titulo}>Modal y BottomSheet</Text>
             <Button title = "Abrir Modal" onPress = {() => setModalVisible(true)}/>
             <Button title = "Abrir BottomSheet" onPress = {() => setBottomSheetVisible(true)}/>
 
