@@ -13,21 +13,38 @@ import {
 /* Zona 2: Main - Hogar de los componentes */
 export default function ModalScreen() {
     const [modalVisible, setModalVisible] = useState(false);
+    const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
     return(
         <View style = {styles.container}>
             <Text style = {styles.titulo}>Ejemplo de Modal y BottomSheet</Text>
-            <Button title = "Abrir modal" onPress = {() => setModalVisible(true)}/>
+            <Button title = "Abrir Modal" onPress = {() => setModalVisible(true)}/>
+            <Button title = "Abrir BottomSheet" onPress = {() => setBottomSheetVisible(true)}/>
+
+            <Modal 
+                animationType = "fade" 
+                transparent = {true} 
+                visible = {modalVisible}
+            >
+                <View style = {styles.modalBackground}>
+                    <View style = {styles.modal}>
+                        <Text style = {styles.texto}>Hola, esto es un Modal</Text>
+                        <Pressable style = {styles.boton} onPress = {() => setModalVisible(false)}>
+                            <Text style = {styles.textoBoton}>Cerrar</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
 
             <Modal 
                 animationType = "slide" 
                 transparent = {true} 
-                visible = {modalVisible}
+                visible = {bottomSheetVisible   }
             >
                 <View style = {styles.fondo}>
                     <View style = {styles.bottomSheet}>
                         <Text style = {styles.texto}>Hola, esto es un BottomSheet</Text>
-                        <Pressable style = {styles.boton} onPress = {() => setModalVisible(false)}>
+                        <Pressable style = {styles.boton} onPress = {() => setBottomSheetVisible(false)}>
                             <Text style = {styles.textoBoton}>Cerrar</Text>
                         </Pressable>
                     </View>
@@ -50,6 +67,18 @@ const styles = StyleSheet.create({
         fontSize: 24, 
         fontWeight: "bold", 
         marginBottom: 20, 
+    }, 
+    modalBackground: {
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        backgroundColor: "rgba(0,0,0,0.4)", 
+    }, 
+    modal: {
+        backgroundColor: "#ffffff", 
+        padding: 25, 
+        borderRadius: 20, 
+        alignItems: "center", 
     }, 
     fondo: {
         flex: 1, 
