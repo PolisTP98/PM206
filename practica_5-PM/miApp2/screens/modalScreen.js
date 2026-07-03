@@ -39,7 +39,7 @@ export default function ModalScreen() {
             <Modal 
                 animationType = "slide" 
                 transparent = {true} 
-                visible = {bottomSheetVisible   }
+                visible = {bottomSheetVisible}
             >
                 <View style = {styles.fondo}>
                     <View style = {styles.bottomSheet}>
