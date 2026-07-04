@@ -1,80 +1,117 @@
-/* Zona 1: Importaciones de componentes y archivos */
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import React, { use, useState } from "react";
 import { 
     StyleSheet, 
     Text, 
     View, 
+    TextInput, 
     Button, 
-    Modal, 
-    Pressable, 
+    KeyboardAvoidingView, 
+    ActivityIndicator, 
+    Platform, 
+    Image, 
 } from "react-native";
 
-/* Zona 2: Main - Hogar de los componentes */
-export default function ModalScreen() {
-    const [modalVisible, setModalVisible] = useState(false);
+export default function ActivityIndicatorScreen() {
+    const [nombre, setNombre] = useState("");
+    const [carrera, setCarrera] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    return(
+    const handleGuardar = () => {
+        if (nombre.trim() === "" || carrera.trim() === "") {
+            alert("Favor de llenar todos los campos");
+            return;
+        }
+        
+        setIsLoading(true);
+        
+        setTimeout(() => {
+            setIsLoading(false);
+            alert(`Perfil de ${nombre} guardado con éxito`);
+            
+            setNombre("");
+            setCarrera("");
+        }, 3000);
+    };
+
+    return (
         <View style = {styles.container}>
-            <Text style = {styles.titulo}>Ejemplo de Modal y BottomSheet</Text>
-            <Button title = "Abrir modal" onPress = {() => setModalVisible(true)}/>
-
-            <Modal 
-                animationType = "slide" 
-                transparent = {true} 
-                visible = {modalVisible}
+            <KeyboardAvoidingView 
+                behavior = {Platform.OS === "ios" ? "padding" : "height"} 
+                style = {styles.formContainer}
             >
-                <View style = {styles.fondo}>
-                    <View style = {styles.bottomSheet}>
-                        <Text style = {styles.texto}>Hola, esto es un BottomSheet</Text>
-                        <Pressable style = {styles.boton} onPress = {() => setModalVisible(false)}>
-                            <Text style = {styles.textoBoton}>Cerrar</Text>
-                        </Pressable>
+                <View style = {styles.formContainerInner}>
+                    <View style = {styles.formBody}>
+                        <Text style = {styles.titulo}>Agregar perfil</Text>
+
+                        <TextInput 
+                            style = {styles.input} 
+                            placeholder = "Nombre completo" 
+                            value = {nombre} 
+                            onChangeText = {setNombre}
+                        />
+
+                        <TextInput 
+                            style = {styles.input} 
+                            placeholder = "Carrera" 
+                            value = {carrera} 
+                            onChangeText = {setCarrera}
+                        />
+                    </View>
+
+                    <View style={styles.actionArea}>
+                        {isLoading ? (
+                            <ActivityIndicator size = "small" color = "#4D96FF" style = {styles.loader}/>
+                        ) : (
+                            <Button title = "Guardar perfil" onPress = {handleGuardar} color = "#4D96FF"/>
+                        )}
                     </View>
                 </View>
-            </Modal>
+            </KeyboardAvoidingView>
             <StatusBar style = "auto"/>
         </View>
     );
 }
 
-/* Zona 3: Estilos y posicionamiento */
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
+        backgroundColor: "#f9f9f9", 
+    }, 
+    formContainer: {
+        flex: 1, 
+    }, 
+    formContainerInner: {
+        flex: 1, 
+        padding: 20, 
+        justifyContent: "space-between", 
+    }, 
+    formBody: {
+        flex: 1, 
         justifyContent: "center", 
-        alignItems: "center", 
-        backgroundColor: "#ffffff", 
+    }, 
+    actionArea: {
+        paddingTop: 10, 
+        paddingBottom: Platform.OS === "ios" ? 20 : 10, 
     }, 
     titulo: {
-        fontSize: 24, 
+        fontSize: 22, 
         fontWeight: "bold", 
         marginBottom: 20, 
+        textAlign: "center", 
+        color: "#333333", 
     }, 
-    fondo: {
-        flex: 1, 
-        justifyContent: "flex-end", 
-        backgroundColor: "rgba(0,0,0,0.4)", 
-    }, 
-    bottomSheet: {
-        backgroundColor: "#ffffff", 
-        padding: 25, 
-        borderTopLeftRadius: 20, 
-        borderTopRightRadius: 20, 
-        alignItems: "center", 
-    }, 
-    texto: {
-        fontSize: 20, 
-        marginBottom: 20, 
-    }, 
-    boton: {
-        backgroundColor: "#2196F3", 
-        paddingHorizontal: 25, 
-        paddingVertical: 10, 
+    input: {
+        height: 50, 
+        borderColor: "#cccccc", 
+        borderWidth: 1, 
         borderRadius: 8, 
+        marginBottom: 15, 
+        paddingHorizontal: 15, 
+        backgroundColor: "#ffffff", 
+        fontSize: 16, 
     }, 
-    textoBoton: {
-        color: "#ffffff", 
-        fontWeight: "bold", 
-    }, 
+    loader: {
+        marginVertical: 10, 
+    }
 });
