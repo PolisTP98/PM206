@@ -14,6 +14,7 @@ import {
     View, 
     TextInput, 
     Text, 
+    Image, 
     Pressable, 
     ActivityIndicator, 
     StyleSheet, 
@@ -64,8 +65,18 @@ export default function Biblioteca() {
         if(Platform.OS !== "web") {
             Keyboard.dismiss();
         }
-        if(!tituloLibro?.trim() || !autorLibro?.trim() || !generoLibro?.trim()) {
-            alertas("Campos vacíos", "Debes llenar todos los campos del formulario");
+        const camposVacios = [];
+        if(!tituloLibro?.trim()) {
+            camposVacios.push("- Título del libro");
+        }
+        if(!autorLibro?.trim()) {
+            camposVacios.push("- Autor del libro");
+        }
+        if(!generoLibro?.trim()) {
+            camposVacios.push("- Género del libro");
+        }
+        if(camposVacios.length > 0) {
+            alertas("Campos vacíos", `Debes llenar los siguientes campos del formulario:\n${camposVacios.join("\n")}`);
             return false;
         }
         return true;
@@ -135,7 +146,7 @@ export default function Biblioteca() {
 
     const formularioLibros = () => (
         <View style = {styles.formulario}>
-            <View>
+            <View style = {styles.buscador}>
                 <TextInput 
                     style = {[styles.campoEntrada, styles.texto, styles.textoNegro]} 
                     placeholder = "Buscar libro por título, autor o género..." 
@@ -146,6 +157,10 @@ export default function Biblioteca() {
                     autoCorrect = {false} 
                     autoCapitalize = "none" 
                     maxLength = {255}
+                />
+                <Image 
+                    style = {styles.lupa} 
+                    source = {require("../assets/search.png")}
                 />
             </View>
             <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita, styles.tituloFormulario, styles.textoCentrado, styles.mt40]}>Catálogo de libros</Text>
@@ -184,7 +199,7 @@ export default function Biblioteca() {
                 {cargando 
                     ? <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita]}>Guardando...</Text> 
                     : idLibroEditar 
-                        ? <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita]}>Editar libro</Text> 
+                        ? <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita]}>Guardar</Text> 
                         : <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita]}>Agregar libro</Text>
                 }
             </Pressable>
@@ -197,7 +212,7 @@ export default function Biblioteca() {
                     />
                     <Text style = {[styles.texto, styles.textoBlanco, styles.textoNegrita, styles.textoCentrado]}>
                         {idLibroEditar 
-                            ? "Editando libro..." 
+                            ? "Guardando cambios..." 
                             : "Guardando libro..."
                         }
                     </Text>
@@ -217,7 +232,7 @@ export default function Biblioteca() {
             <View style = {[styles.contenedor, { paddingTop: insets.top + 30 }]}>
                 <KeyboardAvoidingView 
                     style = {{ flex: 1 }} 
-                    behavior = {Platform.OS === "ios" ? "padding" : "height"} 
+                    behavior = {Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <FlatList 
                         data = {librosFiltrados} 
@@ -278,6 +293,18 @@ const styles = StyleSheet.create({
     imagen: { 
         opacity: 0.5, 
     }, 
+    buscador: { 
+        position: "relative", 
+        flexDirection: "row", 
+        alignItems: "center", 
+    }, 
+    lupa: { 
+        position: "absolute", 
+        right: 10, 
+        width: 20, 
+        height: 20, 
+        zIndex: 1, 
+    }, 
     formulario: { 
         width: "100%", 
     }, 
@@ -304,6 +331,7 @@ const styles = StyleSheet.create({
         textAlign: "center", 
     }, 
     campoEntrada: { 
+        flex: 1, 
         borderRadius: 20, 
         padding: 10, 
         backgroundColor: "rgba(255, 255, 255, 0.8)", 
