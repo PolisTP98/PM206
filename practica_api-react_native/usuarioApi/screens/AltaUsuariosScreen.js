@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { 
   View, 
-  SafeAreaView, 
   Text, 
   TextInput, 
   Pressable, 
@@ -9,12 +8,13 @@ import {
   Alert, 
   Platform 
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const API_URL = 
     Platform.OS === "web" 
       ? "http://localhost:5000/v1/"
-      : "http://10.35.168.51:5000/v1/";
+      : process.env.EXPO_PUBLIC_API_URL;
   const [nombre, setNombre] = useState("");
   const [edad, setEdad] = useState("");
   const [cargando, setCargando] = useState(false);
@@ -36,15 +36,24 @@ export default function App() {
 
     try {
       setCargando(true);
-      const respuesta = await fetch(`${API_URL}usuarios`, 
+      const respuesta = await fetch(`${API_URL}usuarios/`, 
         {
           method: "POST", 
-          headers: {"Content-Type": "application/json"}, 
+          headers: {
+            "Content-Type": "application/json"
+          }, 
           body: JSON.stringify({nombre: nombre, edad: Number(edad)})
         }
       );
-      const datos = await respuesta.json();
-      console.log("Respuesta de la API:\n", datos);
+      const textoRespuesta = await respuesta.text();
+      console.log(`Respuesta del servidor:\n${textoRespuesta}`);
+      if(respuesta.ok) {
+        const datos = JSON.parse(textoRespuesta);
+        console.log(`Respuesta de la API:\n${datos}`);
+      }
+      else {
+        console.error(`Error del servidor (${respuesta.status}): ${textoRespuesta}`);
+      }
       mostrarMensaje("Éxito", "Usuario registrado correctamente");
       setNombre("");
       setEdad("");

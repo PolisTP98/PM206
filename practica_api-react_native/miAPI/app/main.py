@@ -11,7 +11,8 @@ usuarioDB.Base.metadata.create_all(bind = engine)
 app = FastAPI(
     title = "API usuarios",
     description = "Ivan Isay Guerra",
-    version = "1.0.0"
+    version = "1.0.0",
+    redirect_slashes = False
 )
 
 origins = [
